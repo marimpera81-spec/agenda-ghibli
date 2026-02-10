@@ -60,5 +60,43 @@ h3 { margin: 5px 0; color: #444; }
     background: #fdfdfd;
     padding: 5px;
     border-radius: 5px;
+    /* --- Estilos para el Botón y el Checklist --- */
+.controles {
+    text-align: center;
+    margin-bottom: 25px;
 }
+
+#btn-filtro {
+    background-color: var(--lavanda);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(207, 193, 216, 0.5);
+    transition: all 0.3s ease;
+}
+
+#btn-filtro:hover {
+    transform: scale(1.05);
+    background-color: #bfaec9;
+}
+
+.emoji-estado {
+    font-size: 1.3rem;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.tarea-check {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
 
