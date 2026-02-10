@@ -1,38 +1,35 @@
-// Tu llave maestra (el link que me pasaste)
 const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuoZbTaaTKYrB9djx73gUcxktl3t0kRJsVgfz418i57vqQxsVIL1DqR9o747f0dRX7SmhQnd4XnFHX/pub?output=csv";
 
 async function cargarAgenda() {
     try {
         const respuesta = await fetch(URL_CSV);
         const datos = await respuesta.text();
-        
-        // Separamos por filas y quitamos el encabezado
         const filas = datos.split("\n").slice(1); 
         const contenedor = document.getElementById('agenda-dinamica');
 
-        contenedor.innerHTML = ""; // Limpiamos antes de cargar
+        contenedor.innerHTML = ""; 
 
         filas.forEach(fila => {
-            // Separamos cada columna por la coma
-            const columnas = fila.split(",");
+            // Esto ayuda a que si hay comas o espacios raros, no se rompa
+            const columnas = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
             
-            // Asignamos cada columna a una variable (según el orden de tu Sheets)
-            const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
+            if (columnas.length >= 6) {
+                const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
 
-            if (actividad) {
                 const card = document.createElement('div');
                 card.className = 'card';
-                // Usamos el color hex que definiste en el Sheets
-                card.style.borderLeft = `8px solid ${color.trim()}`; 
+                // Quitamos espacios raros del color y comillas
+                const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
+                card.style.borderLeft = `10px solid ${colorLimpio}`; 
                 
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="tag">${tipo}</span>
-                        <span class="hora">${horario}</span>
+                        <span>${tipo.replace(/"/g, "")}</span>
+                        <span>${horario.replace(/"/g, "")}</span>
                     </div>
-                    <h3>${actividad}</h3>
-                    <p class="tarea">${estado} ${tarea}</p>
-                    <small class="dia-tag">${dia}</small>
+                    <h3>${actividad.replace(/"/g, "")}</h3>
+                    <p class="tarea-check">${estado.replace(/"/g, "")} ${tarea.replace(/"/g, "")}</p>
+                    <small style="color: #aaa">${dia.replace(/"/g, "")}</small>
                 `;
                 contenedor.appendChild(card);
             }
@@ -41,6 +38,5 @@ async function cargarAgenda() {
         console.error("Error cargando los datos:", error);
     }
 }
-
 
 cargarAgenda();
