@@ -16,18 +16,19 @@ body {
     min-height: 100vh;
 }
 
+/* El contenedor ahora ocupa el 100% */
 .glass-container {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     min-height: 100vh;
-    width: 100%; /* Ocupa todo el ancho */
-    padding: 40px 5%; /* Margen sutil a los lados */
+    width: 100%; 
+    padding: 40px 5%; 
     box-sizing: border-box;
 }
 
 #reloj-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 #reloj {
@@ -36,7 +37,7 @@ body {
     color: #444;
 }
 
-/* Sistema de Rejilla para las tarjetas */
+/* SISTEMA PARA QUE OCUPE TODO EL ANCHO */
 #agenda-dinamica {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -49,46 +50,20 @@ body {
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    border-left: 10px solid;
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
-.tab-btn {
-    background: white;
-    border: 2px solid var(--lavanda);
-    padding: 10px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    color: var(--lavanda);
-    transition: 0.3s;
+/* Ocultar el texto flotante de checklist */
+.tareas-section {
+    display: none;
 }
-
-.tab-btn.active {
-    background: var(--lavanda);
-    color: white;
-}
-
-#btn-filtro {
-    background: #a393ad;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 50px;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
-.controles { text-align: center; }
-
 
 
 
