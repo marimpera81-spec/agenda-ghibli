@@ -4,10 +4,14 @@
     --texto: #5D5D5D;
 }
 
-body {
-    background-color: var(--bg-ghibli);
+   body {
+    background-image: linear-gradient(rgba(250, 243, 224, 0.85), rgba(250, 243, 224, 0.85)), 
+                      url('https://images.alphacoders.com/133/1331086.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--texto);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -57,3 +61,4 @@ h3 { margin: 5px 0; color: #444; }
     padding: 5px;
     border-radius: 5px;
 }
+
