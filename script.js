@@ -57,6 +57,30 @@ function alternarFiltro() {
     btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
     cargarAgenda();
 }
+function actualizarReloj() {
+    const ahora = new Date();
+    
+    // Formatear hora
+    const horas = String(ahora.getHours()).padStart(2, '0');
+    const minutos = String(ahora.getMinutes()).padStart(2, '0');
+    const segundos = String(ahora.getSeconds()).padStart(2, '0');
+    document.getElementById('reloj').innerText = `${horas}:${minutos}:${segundos}`;
 
+    // Formatear fecha
+    const opciones = { weekday: 'long', day: 'numeric', month: 'long' };
+    document.getElementById('fecha-hoy').innerText = ahora.toLocaleDateString('es-ES', opciones);
+
+    // Saludo dinámico
+    const saludo = document.getElementById('saludo');
+    const hora = ahora.getHours();
+    if (hora < 12) saludo.innerText = "¡Buen día, Maru! ☕";
+    else if (hora < 20) saludo.innerText = "¡Buena tarde, Maru! 🎨";
+    else saludo.innerText = "¡Buenas noches, Maru! 🌙";
+}
+
+// Actualizar cada segundo
+setInterval(actualizarReloj, 1000);
+actualizarReloj(); // Llamada inicial
 // Arranca la carga
 cargarAgenda();
+
