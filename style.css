@@ -63,7 +63,65 @@ body {
 /* Ocultar el texto flotante de checklist */
 .tareas-section {
     display: none;
+    /* --- Mejora de Pestañas (Facultad y BookTok) --- */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
 }
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid transparent;
+    padding: 12px 25px;
+    border-radius: 15px; /* Bordes más suaves */
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    color: #777;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.tab-btn:hover {
+    transform: translateY(-2px);
+    background: white;
+}
+
+.tab-btn.active {
+    background: white;
+    color: var(--lavanda);
+    border-color: var(--lavanda);
+    box-shadow: 0 6px 15px rgba(207, 193, 216, 0.4);
+}
+
+/* --- Mejora del Botón "Ver toda la semana" --- */
+.controles {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#btn-filtro {
+    background-color: #A3B18A; /* Un verde musgo Ghibli muy suave */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(163, 177, 138, 0.3);
+    transition: all 0.3s ease;
+}
+
+#btn-filtro:hover {
+    background-color: #588157; /* Verde más profundo al pasar el mouse */
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(88, 129, 87, 0.4);
+}
+}
+
 
 
 
