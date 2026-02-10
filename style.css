@@ -1,106 +1,32 @@
 :root {
-    --bg-ghibli: #FAF3E0; /* Crema papel antiguo */
+    --bg-ghibli: #FAF3E0;
     --lavanda: #CFC1D8;
     --texto: #5D5D5D;
 }
 
-   body {
-    background-image: linear-gradient(rgba(250, 243, 224, 0.85), rgba(250, 243, 224, 0.85)), 
+body {
+    background-image: linear-gradient(rgba(250, 243, 224, 0.8), rgba(250, 243, 224, 0.8)), 
                       url('https://images.alphacoders.com/133/1331086.png');
     background-size: cover;
-    background-position: center;
     background-attachment: fixed;
-    color: var(--texto);
     font-family: 'Segoe UI', sans-serif;
     display: flex;
     justify-content: center;
     padding: 20px;
-    margin: 0;
 }
 
 .glass-container {
-    background: rgba(255, 255, 255, 0.7); /* Transparencia suave */
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     border-radius: 25px;
-    padding: 25px;
+    padding: 30px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
-h1 {
-    text-align: center;
-    color: var(--lavanda);
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-}
-
-.card {
-    background: white;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    border-left: 10px solid; /* El color vendrá del Sheets */
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #999;
-    margin-bottom: 5px;
-}
-
-h3 { margin: 5px 0; color: #444; }
-
-.tarea-check {
-    font-size: 0.9rem;
-    color: #666;
-    background: #fdfdfd;
-    padding: 5px;
-    border-radius: 5px;
-    /* --- Estilos para el Botón y el Checklist --- */
 .controles {
     text-align: center;
-    margin-bottom: 25px;
-}
-
-#btn-filtro {
-    background-color: var(--lavanda);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(207, 193, 216, 0.5);
-    transition: all 0.3s ease;
-}
-
-#btn-filtro:hover {
-    transform: scale(1.05);
-    background-color: #bfaec9;
-}
-
-.emoji-estado {
-    font-size: 1.3rem;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.tarea-check {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    /* Estilos finales para el botón y la lista */
-.controles {
-    display: flex;
-    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -110,17 +36,19 @@ h3 { margin: 5px 0; color: #444; }
     border: none;
     padding: 10px 20px;
     border-radius: 50px;
-    font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(207, 193, 216, 0.4);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(207, 193, 216, 0.4);
 }
 
-.tareas-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 2px dashed var(--lavanda);
+.card {
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    border-left: 10px solid; /* El color vendrá del Sheets */
 }
-}
+
 
 
 
