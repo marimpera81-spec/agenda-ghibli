@@ -3,46 +3,83 @@ let mostrarSoloHoy = true;
 let datosCache = "";
 let tabActual = 'Facultad';
 
-async function cargarAgenda() {
-    if (!datosCache) {
-        const respuesta = await fetch(URL_CSV);
-        datosCache = await respuesta.text();
-    }
+// 1. FUNCIÓN DEL RELOJ Y SALUDO
+function actualizarReloj() {
+    const ahora = new Date();
+    const horas = String(ahora.getHours()).padStart(2, '0');
+    const minutos = String(ahora.getMinutes()).padStart(2, '0');
+    const segundos = String(ahora.getSeconds()).padStart(2, '0');
     
-    const filas = datosCache.split("\n").slice(1); 
-    const contenedor = document.getElementById('agenda-dinamica');
-    contenedor.innerHTML = ""; 
+    if(document.getElementById('reloj')) {
+        document.getElementById('reloj').innerText = `${horas}:${minutos}:${segundos}`;
+    }
 
-    const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
-    const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
-
-    filas.forEach(fila => {
-        const columnas = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-        if (columnas.length >= 6) {
-            const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
-            const diaLimpio = dia.replace(/"/g, "").trim();
-            const tipoLimpio = tipo.replace(/"/g, "").trim();
-
-            // FILTRO DOBLE: Por pestaña (Facu/BookTok) y por Día
-            if (tipoLimpio === tabActual) {
-                if (!mostrarSoloHoy || diaLimpio === diaActual) {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
-                    card.style.borderLeft = `10px solid ${colorLimpio}`; 
-                    
-                    card.innerHTML = `
-                        <div class="card-header"><span>${diaLimpio} | ${horario.replace(/"/g, "")}</span></div>
-                        <h3>${actividad.replace(/"/g, "")}</h3>
-                        <div class="tarea-check"><span>${estado.replace(/"/g, "")}</span> ${tarea.replace(/"/g, "")}</div>
-                    `;
-                    contenedor.appendChild(card);
-                }
-            }
-        }
-    });
+    const saludo = document.getElementById('saludo');
+    if(saludo) {
+        const hora = ahora.getHours();
+        if (hora < 12) saludo.innerText = "¡Buen día, Maru! ☕";
+        else if (hora < 20) saludo.innerText = "¡Buena tarde, Maru! 🎨";
+        else saludo.innerText = "¡Buenas noches, Maru! 🌙";
+    }
 }
 
+// 2. FUNCIÓN DEL CONTADOR DE EXAMEN
+function configurarContador() {
+    const fechaExamen = new Date('2026-03-10'); // Cambiá esta fecha cuando quieras
+    const hoy = new Date();
+    const dif = fechaExamen - hoy;
+    const dias = Math.ceil(dif / (1000 * 60 * 60 * 24));
+    
+    const display = document.getElementById('countdown-examen');
+    if (display) {
+        if (dias > 0) display.innerText = `⏳ Faltan ${dias} días para el próximo examen`;
+        else display.innerText = "✨ ¡No hay exámenes próximos!";
+    }
+}
+
+// 3. CARGAR DATOS DEL SHEETS
+async function cargarAgenda() {
+    try {
+        if (!datosCache) {
+            const respuesta = await fetch(URL_CSV);
+            datosCache = await respuesta.text();
+        }
+        
+        const filas = datosCache.split("\n").slice(1); 
+        const contenedor = document.getElementById('agenda-dinamica');
+        contenedor.innerHTML = ""; 
+
+        const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
+        const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
+
+        filas.forEach(fila => {
+            const columnas = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            if (columnas.length >= 6) {
+                const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
+                const diaLimpio = dia.replace(/"/g, "").trim();
+                const tipoLimpio = tipo.replace(/"/g, "").trim();
+
+                if (tipoLimpio === tabActual) {
+                    if (!mostrarSoloHoy || diaLimpio === diaActual) {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
+                        card.style.borderLeft = `10px solid ${colorLimpio}`; 
+                        
+                        card.innerHTML = `
+                            <div class="card-header"><span>${diaLimpio} | ${horario.replace(/"/g, "")}</span></div>
+                            <h3>${actividad.replace(/"/g, "")}</h3>
+                            <div class="tarea-check"><span>${estado.replace(/"/g, "")}</span> ${tarea.replace(/"/g, "")}</div>
+                        `;
+                        contenedor.appendChild(card);
+                    }
+                }
+            }
+        });
+    } catch (e) { console.error(e); }
+}
+
+// 4. CONTROLES DE INTERFAZ
 function cambiarTab(nuevaTab) {
     tabActual = nuevaTab;
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -51,24 +88,18 @@ function cambiarTab(nuevaTab) {
     cargarAgenda();
 }
 
-// LÓGICA DEL CONTADOR DE EXAMEN
-function configurarContador() {
-    const fechaExamen = new Date('2026-03-10'); // CAMBIÁ ESTA FECHA CUANDO TENGAS EL EXAMEN
-    const hoy = new Date();
-    const dif = fechaExamen - hoy;
-    const dias = Math.ceil(dif / (1000 * 60 * 60 * 24));
-    
-    const display = document.getElementById('countdown-examen');
-    if (dias > 0) display.innerText = `⏳ Faltan ${dias} días para el próximo examen`;
-    else display.innerText = "✨ ¡No hay exámenes próximos!";
+function alternarFiltro() {
+    mostrarSoloHoy = !mostrarSoloHoy;
+    const btn = document.getElementById('btn-filtro');
+    btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
+    cargarAgenda();
 }
 
-// Mantener el reloj funcionando
-setInterval(() => {
-    // Aquí va tu función de reloj que ya tenías
-}, 1000);
-
+// INICIO
+setInterval(actualizarReloj, 1000);
+actualizarReloj();
 configurarContador();
 cargarAgenda();
+
 
 
