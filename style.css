@@ -126,7 +126,25 @@ h3 {
     font-weight: bold;
     text-transform: capitalize;
 }
+    .tarea-check {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 10px;
+    border: 1px dashed var(--lavanda);
+    font-size: 1rem;
+    line-height: 1.4;
 }
+
+.tarea-check span {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+}
+
 
 
 
