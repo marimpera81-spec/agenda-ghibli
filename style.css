@@ -47,7 +47,57 @@ body {
     padding: 15px;
     border-radius: 15px;
     border-left: 10px solid; /* El color vendrá del Sheets */
+    /* Mejora de las tarjetas y textos */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
 }
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+h3 {
+    margin: 0 0 10px 0;
+    color: #4A4A4A;
+    font-size: 1.3rem;
+}
+
+.tipo-tag {
+    background: var(--lavanda);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.tarea-check {
+    background: #fdf8ef;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px dashed #decbb7;
+    font-size: 0.95rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+}
+
 
 
 
