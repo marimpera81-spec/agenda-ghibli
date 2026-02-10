@@ -94,12 +94,43 @@ function alternarFiltro() {
     btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
     cargarAgenda();
 }
+// CONFIGURACIÓN DEL REPRODUCTOR
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: '8_vN7K8K4_o', // Radio Ghibli Lofi 24/7
+        playerVars: { 'autoplay': 0, 'controls': 0 },
+    });
+}
+
+// Cargar la API de YouTube
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+let tocando = false;
+function toggleMusica() {
+    const btn = document.getElementById('play-pause');
+    if (!tocando) {
+        player.playVideo();
+        btn.innerText = "⏸️ Pausar Música";
+        tocando = true;
+    } else {
+        player.pauseVideo();
+        btn.innerText = "🎵 Escuchar Lofi Ghibli";
+        tocando = false;
+    }
+}
 
 // INICIO
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 configurarContador();
 cargarAgenda();
+
 
 
 
