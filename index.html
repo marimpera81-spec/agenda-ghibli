@@ -7,36 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="glass-container">
-    <div id="reloj-container">
-        <div id="saludo">¡Hola, Maru! ✨</div>
-        <div id="reloj">00:00:00</div>
-        <div id="countdown-examen"></div>
+    <div class="glass-container">
+        <div id="reloj-container">
+            <div id="saludo">¡Hola, Maru! ✨</div>
+            <div id="reloj">00:00:00</div>
+            <div id="countdown-examen"></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="cambiarTab('Facultad')">Facultad 🏛️</button>
+            <button class="tab-btn" onclick="cambiarTab('BookTok')">BookTok 🎥</button>
+        </div>
+
+        <div class="controles">
+            <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
+        </div>
+
+        <div id="agenda-dinamica"></div>
     </div>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarTab('Facultad')">Facultad 🏛️</button>
-        <button class="tab-btn" onclick="cambiarTab('BookTok')">BookTok 🎥</button>
-    </div>
-
-    <div class="controles">
-        <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
-    </div>
-
-    <div id="agenda-dinamica"></div>
-</div>
-
-    <div id="agenda-dinamica"></div>
-
-    <div class="tareas-section">
-        <h2>Checklist Semanal ✅</h2>
-        <div id="lista-tareas"></div>
-    </div>
-</div>
 
     <script src="script.js"></script>
 </body>
-
 </html>
 
 
