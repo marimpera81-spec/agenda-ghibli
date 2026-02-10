@@ -103,7 +103,33 @@ body {
     box-shadow: 0 4px 10px rgba(148, 163, 122, 0.3);
     transition: 0.3s;
 } 
+    .player-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
 }
+
+#play-pause {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--lavanda);
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--texto);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+#play-pause:hover {
+    background: white;
+    transform: scale(1.05);
+}
+}
+
 
 
 
