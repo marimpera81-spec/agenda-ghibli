@@ -111,24 +111,29 @@ body {
 }
 
 #play-pause {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(207, 193, 216, 0.8); /* El lavanda de tu paleta con transparencia */
     backdrop-filter: blur(10px);
-    border: 1px solid var(--lavanda);
-    padding: 10px 15px;
+    border: 1px solid white;
+    padding: 12px 20px;
     border-radius: 50px;
     font-family: inherit;
-    font-size: 0.8rem;
-    color: var(--texto);
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 #play-pause:hover {
-    background: white;
-    transform: scale(1.05);
+    background: rgba(207, 193, 216, 1);
+    transform: scale(1.1) translateY(-5px);
 }
 }
+
 
 
 
