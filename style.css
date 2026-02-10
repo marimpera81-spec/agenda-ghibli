@@ -96,7 +96,38 @@ h3 {
     align-items: center;
     gap: 10px;
 }
+    #reloj-container {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+#saludo {
+    font-size: 1.1rem;
+    color: var(--texto);
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+#reloj {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4A4A4A;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+
+#fecha-hoy {
+    font-size: 0.9rem;
+    color: var(--lavanda);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+}
+
 
 
 
