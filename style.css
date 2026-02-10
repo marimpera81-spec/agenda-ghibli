@@ -97,6 +97,30 @@ h3 { margin: 5px 0; color: #444; }
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
+    /* Estilos finales para el botón y la lista */
+.controles {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
+
+#btn-filtro {
+    background-color: var(--lavanda);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(207, 193, 216, 0.4);
+}
+
+.tareas-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--lavanda);
+}
+}
+
 
 
