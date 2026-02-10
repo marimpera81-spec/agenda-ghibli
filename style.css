@@ -1,37 +1,59 @@
+:root {
+    --bg-ghibli: #FAF3E0; /* Crema papel antiguo */
+    --lavanda: #CFC1D8;
+    --texto: #5D5D5D;
+}
+
+body {
+    background-color: var(--bg-ghibli);
+    color: var(--texto);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.glass-container {
+    background: rgba(255, 255, 255, 0.7); /* Transparencia suave */
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 25px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+h1 {
+    text-align: center;
+    color: var(--lavanda);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
 .card {
     background: white;
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 15px;
+    padding: 15px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border-left: 10px solid; /* El color vendrá del Sheets */
+}
+
+.card-header {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.tag {
-    background: #f0f0f0;
-    padding: 4px 10px;
-    border-radius: 20px;
+    justify-content: space-between;
     font-size: 0.8rem;
-    font-weight: bold;
+    color: #999;
+    margin-bottom: 5px;
 }
 
-.hora {
-    float: right;
-    color: #888;
+h3 { margin: 5px 0; color: #444; }
+
+.tarea-check {
     font-size: 0.9rem;
-}
-
-h3 { margin: 0; color: #4A4A4A; }
-
-.tarea { font-style: italic; color: #666; }
-
-.dia-tag {
-    align-self: flex-end;
-    background: var(--lavanda);
-    color: white;
-    padding: 2px 8px;
+    color: #666;
+    background: #fdfdfd;
+    padding: 5px;
     border-radius: 5px;
-    font-size: 0.7rem;
 }
