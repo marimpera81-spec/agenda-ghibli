@@ -105,24 +105,55 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
-// Cargar la API de YouTube
+// 1. CARGAR LA API DE YOUTUBE
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: '8_vN7K8K4_o', // Radio Ghibli Lofi
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'disablekb': 1,
+            'enablejsapi': 1
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    console.log("Reproductor listo");
+}
+
 let tocando = false;
 function toggleMusica() {
     const btn = document.getElementById('play-pause');
-    if (!tocando) {
-        player.playVideo();
-        btn.innerText = "⏸️ Pausar Música";
-        tocando = true;
+    
+    // Verificamos que el player exista
+    if (player && player.playVideo) {
+        if (!tocando) {
+            player.playVideo();
+            // Truco: Forzamos el volumen por si acaso
+            player.setVolume(50); 
+            btn.innerText = "⏸️ Pausar Música";
+            tocando = true;
+        } else {
+            player.pauseVideo();
+            btn.innerText = "🎵 Escuchar Lofi Ghibli";
+            tocando = false;
+        }
     } else {
-        player.pauseVideo();
-        btn.innerText = "🎵 Escuchar Lofi Ghibli";
-        tocando = false;
+        alert("El reproductor está cargando, intentá de nuevo en un segundo ✨");
     }
+}
 }
 
 // INICIO
@@ -130,6 +161,7 @@ setInterval(actualizarReloj, 1000);
 actualizarReloj();
 configurarContador();
 cargarAgenda();
+
 
 
 
