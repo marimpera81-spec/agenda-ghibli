@@ -7,17 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <div class="glass-container">
-     <div id="reloj-container">
-    <div id="saludo">¡Hola, Maru! ✨</div>
-    <div id="reloj">00:00:00</div>
-    <div id="fecha-hoy"></div>
-</div>
-    <h1>Planificador Maru 🌷</h1>
+<div class="glass-container">
+    <div id="reloj-container">
+        <div id="saludo">¡Hola, Maru! ✨</div>
+        <div id="reloj">00:00:00</div>
+        <div id="countdown-examen"></div> </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="cambiarTab('Facultad')">Facultad 🏛️</button>
+        <button class="tab-btn" onclick="cambiarTab('BookTok')">BookTok 🎥</button>
+    </div>
+
     <div class="controles">
-        <div id="agenda-dinamica"></div>
         <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
     </div>
+
+    <div id="agenda-dinamica"></div>
+</div>
 
     <div id="agenda-dinamica"></div>
 
@@ -31,6 +37,7 @@
 </body>
 
 </html>
+
 
 
 
