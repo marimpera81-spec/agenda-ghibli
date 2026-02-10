@@ -172,7 +172,18 @@ h3 {
     margin-top: 10px;
     font-weight: bold;
 }
+    #countdown-examen {
+    font-size: 0.9rem;
+    color: #8a6d3b; /* Color madera suave */
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 8px 15px;
+    border-radius: 10px;
+    display: inline-block;
+    border: 1px dashed #d6e9c6;
 }
+}
+
 
 
 
