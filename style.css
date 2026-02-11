@@ -17,9 +17,17 @@ body {
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* Tres columnas */
+    grid-template-columns: 280px 1fr 320px; /* Anchos fijos a los lados, el centro crece */
     gap: 20px;
     padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Para que las secciones no queden pegadas al techo */
+.main-content, .sidebar, .right-panel {
+    display: flex;
+    flex-direction: column;
 }
 
 .glass {
@@ -47,6 +55,7 @@ h2 { border-bottom: 2px dashed var(--lavanda); padding-bottom: 10px; margin-top:
         grid-template-columns: 1fr; /* Una sola columna en el celu */
     }
 }
+
 
 
 
