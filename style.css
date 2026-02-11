@@ -11,33 +11,23 @@ body {
     background-attachment: fixed;
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    color: var(--texto);
 }
 
 .dashboard-grid {
     display: grid;
-    /* Tres columnas: Izquierda (Música), Centro (Agenda), Derecha (Exámenes/Calendario) */
-    grid-template-columns: 320px 1fr 380px; 
+    grid-template-columns: 300px 1fr 350px; 
     gap: 20px;
     padding: 20px;
     min-height: 100vh;
-    box-sizing: border-box;
 }
 
 .glass {
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-}
-
-/* Responsivo para el celu: en pantallas chicas se pone una columna debajo de otra */
-@media (max-width: 1100px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
+    margin-bottom: 20px;
 }
 
 .card {
@@ -48,20 +38,10 @@ body {
     border-left: 10px solid;
     text-align: left;
 }
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centra el reloj verticalmente */
-    text-align: center;
-}
 
-#reloj {
-    font-size: 3.2rem; /* Un poquito más grande para que luzca */
-    color: var(--texto);
-    font-weight: bold;
-    margin: 10px 0;
+@media (max-width: 1100px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
 }
-
 
 
 
