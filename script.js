@@ -158,6 +158,10 @@ setInterval(actualizarReloj, 1000);
 actualizarReloj();
 configurarContador();
 cargarAgenda();
+// Llamamos a la función una vez para que no empiece en cero
+actualizarReloj();
+// Y luego que se repita cada segundo
+setInterval(actualizarReloj, 1000);
 
 
 
