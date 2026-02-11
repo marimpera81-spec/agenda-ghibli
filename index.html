@@ -8,46 +8,41 @@
 </head>
 <body>
     <div class="dashboard-grid">
-        <aside class="sidebar">
-            <div id="reloj-container" class="glass">
+        <aside class="sidebar glass">
+            <div id="reloj-container">
                 <div id="saludo">¡Hola, Maru! ✨</div>
                 <div id="reloj">00:00:00</div>
                 <div id="fecha-hoy"></div>
             </div>
-            
-            <div class="spotify-container glass">
+            <div class="spotify-container">
                 <h3>Vibras Ghibli 🎶</h3>
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebic9Mj7r?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Ueb99Z3A31?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
         </aside>
 
         <main class="main-content">
             <section class="section-container glass">
-                <h2>🏛️ Facultad: Materias de Hoy</h2>
+                <h2>🏛️ Facultad: Hoy</h2>
                 <div class="controles">
                     <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
                 </div>
                 <div id="agenda-dinamica"></div>
             </section>
-
             <section class="section-container glass">
-                <h2>📚 BookTok: Pendientes</h2>
-                <div id="lista-booktok">
-                    </div>
+                <h2>📚 BookTok: Contenido</h2>
+                <div id="lista-booktok"></div>
             </section>
         </main>
 
-        <aside class="right-panel">
-            <section class="section-container glass">
+        <aside class="right-panel glass">
+            <section>
                 <h2>📅 Próximos Exámenes</h2>
-                <div id="lista-examenes">
-                    </div>
+                <div id="lista-examenes"></div>
             </section>
-            
-            <section class="section-container glass">
+            <section>
                 <h2>🗓️ Mi Calendario</h2>
                 <div class="calendario-wrapper">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=ae7058aa31479b1ee5c744617d93535d2c3bb1040af7adbf9c78d33f24ca7905%40group.calendar.google.com&ctz=America%2FAraguaina" style="border: 0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="https://calendar.google.com/calendar/embed?src=tu-email@gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="100%" height="350" frameborder="0" scrolling="no"></iframe>
                 </div>
             </section>
         </aside>
