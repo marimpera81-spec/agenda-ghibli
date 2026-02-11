@@ -5,134 +5,48 @@
 }
 
 body {
-    background-image: linear-gradient(rgba(250, 243, 224, 0.7), rgba(250, 243, 224, 0.7)), 
+    background-image: linear-gradient(rgba(250, 243, 224, 0.8), rgba(250, 243, 224, 0.8)), 
                       url('https://images.alphacoders.com/133/1331086.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    color: var(--texto);
-    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
 }
 
-/* El contenedor ahora ocupa el 100% */
 .glass-container {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
-    min-height: 100vh;
-    width: 100%; 
-    padding: 40px 5%; 
-    box-sizing: border-box;
+    border-radius: 25px;
+    padding: 20px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
 }
 
-#reloj-container {
-    text-align: center;
-    margin-bottom: 40px;
+/* Estilo para tus botones actuales */
+button {
+    background-color: var(--lavanda) !important;
+    color: white !important;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 #reloj {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: bold;
-    color: #444;
+    color: var(--texto);
+    margin: 20px 0;
 }
 
-/* SISTEMA PARA QUE OCUPE TODO EL ANCHO */
-#agenda-dinamica {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-    width: 100%;
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    border-left: 10px solid;
-}
-
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-/* Ocultar el texto flotante de checklist */
-.tareas-section {
-    display: none;
-    /* --- Mejora de Pestañas (Facultad y BookTok) --- */
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.tab-btn {
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px solid transparent;
-    padding: 10px 20px;
-    border-radius: 25px; /* Más redondeado, tipo burbuja */
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: 600;
-    color: #666;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-}
-
-.tab-btn.active {
-    background: white;
-    color: #8c7fa1; /* Un lavanda un poco más oscuro para que se lea bien */
-    border-color: var(--lavanda);
-    box-shadow: 0 4px 12px rgba(207, 193, 216, 0.4);
-    transform: scale(1.05); /* Se agranda un poquito la pestaña activa */
-}
-
-#btn-filtro {
-    background-color: #94a37a; /* Verde musgo más integrado */
-    color: white;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(148, 163, 122, 0.3);
-    transition: 0.3s;
-} 
-    .player-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-#play-pause {
-    background: rgba(207, 193, 216, 0.8); /* El lavanda de tu paleta con transparencia */
-    backdrop-filter: blur(10px);
-    border: 1px solid white;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-#play-pause:hover {
-    background: rgba(207, 193, 216, 1);
-    transform: scale(1.1) translateY(-5px);
-}
-}
 
 
 
