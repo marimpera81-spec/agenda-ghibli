@@ -47,14 +47,48 @@ async function cargarDatos() {
                 } else if (cat === "booktok") {
                     divBook.appendChild(card);
                 } else {
-                    // Por defecto es Facultad:
+                    // Por defecto es Facultad: filtramos por día según el botón
+                    if (!mostrarSoloHoy || dia === diaActual) {
+                        divFacu.appendChild(card);
+                    }
+                }
+            }
+        });
+    } catch (e) {
+        console.error("Error al cargar la agenda:", e);
+    }
+}
 
+// Control del botón de filtro (Hoy / Semana)
+function alternarFiltro() {
+    mostrarSoloHoy = !mostrarSoloHoy;
+    const btn = document.getElementById('btn-filtro');
+    if (btn) {
+        btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
+    }
+    cargarDatos();
+}
 
+// Lógica del Reloj y Saludo
+function actualizarReloj() {
+    const ahora = new Date();
+    const r = document.getElementById('reloj');
+    const f = document.getElementById('fecha-hoy');
+    const s = document.getElementById('saludo');
 
+    if (r) r.innerText = ahora.toLocaleTimeString('es-ES');
+    if (f) f.innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    
+    if (s) {
+        const h = ahora.getHours();
+        if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
+        else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
+        else s.innerText = "¡Buenas noches, Maru! 🌙";
+    }
+}
 
-
-
-
-
-
+// Iniciar todo
+setInterval(actualizarReloj, 1000);
+actualizarReloj();
+cargarDatos();
 
