@@ -20,40 +20,39 @@ async function cargarDatos() {
         const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
         const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
 
-        filas.forEach(fila => {
-            const col = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, "").trim());
-            
-            if (col.length >= 7) {
-                const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = col;
+        // ... dentro de tu función cargarDatos() ...
+filas.forEach(fila => {
+    const col = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, "").trim());
+    
+    if (col.length >= 7) {
+        const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = col;
+        
+        // Creamos la tarjeta
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.borderLeft = `10px solid ${color || '#CFC1D8'}`;
+        card.innerHTML = `
+            <div class="card-header"><span>${dia} | ${horario}</span></div>
+            <h3>${actividad}</h3>
+            <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
+        `;
 
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.style.borderLeft = `10px solid ${color || '#CFC1D8'}`;
-                card.innerHTML = `
-                    <div class="card-header"><span>${dia} | ${horario}</span></div>
-                    <h3>${actividad}</h3>
-                    <p style="font-size:0.8rem; color:#888; margin:0;">${tipo}</p>
-                    <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
-                `;
-
-                // CLASIFICACIÓN POR CATEGORÍA (Columna H)
-                const cat = categoria ? categoria.toLowerCase() : "";
-
-                if (cat === "examen") {
-                    divExamen.appendChild(card);
-                } else if (cat === "booktok") {
-                    divBook.appendChild(card);
-                } else {
-                    // Por defecto es Facultad: filtramos por día si corresponde
-                    if (!mostrarSoloHoy || dia === diaActual) {
-                        divFacu.appendChild(card);
-                    }
-                }
+        // Clasificación por ID de contenedor
+        const cat = categoria ? categoria.toLowerCase() : "";
+        if (cat === "examen") {
+            document.getElementById('lista-examenes').appendChild(card);
+        } else if (cat === "booktok") {
+            document.getElementById('lista-booktok').appendChild(card);
+        } else {
+            // Facultad (Filtro por día)
+            const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
+            const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
+            if (!mostrarSoloHoy || dia === diaActual) {
+                document.getElementById('agenda-dinamica').appendChild(card);
             }
-        });
-    } catch (e) { console.error("Error:", e); }
-}
-
+        }
+    }
+});
 // FUNCIONES DE SOPORTE
 function alternarFiltro() {
     mostrarSoloHoy = !mostrarSoloHoy;
@@ -76,6 +75,7 @@ function actualizarReloj() {
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarDatos();
+
 
 
 
