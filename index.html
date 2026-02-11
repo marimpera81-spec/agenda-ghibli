@@ -3,24 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Maru 🌷</title>
+    <title>Dashboard Maru 🌷</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glass-container">
-        <div id="reloj-container">
-            <div id="saludo">Cargando...</div>
-            <div id="reloj">00:00:00</div>
-            <div id="fecha-hoy"></div>
-        </div>
+    <div class="dashboard-grid">
+        <aside class="sidebar">
+            <div id="reloj-container" class="glass">
+                <div id="saludo">¡Hola, Maru! ✨</div>
+                <div id="reloj">00:00:00</div>
+                <div id="fecha-hoy"></div>
+            </div>
+            
+            <div class="spotify-container glass">
+                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Ueb9C7V6S7?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </aside>
 
-        <div class="controles">
-            <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
-        </div>
+        <main class="main-content">
+            <section class="section-container glass">
+                <h2>🏛️ Facultad: Materias de Hoy</h2>
+                <div class="controles">
+                    <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
+                </div>
+                <div id="agenda-dinamica"></div>
+            </section>
 
-      <div id="agenda-dinamica"></div>
+            <section class="section-container glass">
+                <h2>📚 BookTok: Contenido & Pendientes</h2>
+                <div id="lista-booktok">
+                    <p class="tarea-check"><span>📖</span> Guion para reseña de "Why Choose"</p>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-panel">
+            <section class="section-container glass">
+                <h2>📅 Próximos Exámenes</h2>
+                <div id="lista-examenes">
+                    <div class="card-examen">
+                        <strong>Hist. Arq. (Labrouste)</strong>
+                        <span>Final - Feb 2026</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section-container glass">
+                <h2>🗓️ Calendario</h2>
+                <div class="calendario-placeholder">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=tu-email@gmail.com&ctz=America%2FArgentina%2FBuenos_Aires" style="border: 0" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </section>
+        </aside>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
