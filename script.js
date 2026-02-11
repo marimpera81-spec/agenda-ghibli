@@ -1,54 +1,58 @@
 const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuoZbTaaTKYrB9djx73gUcxktl3t0kRJsVgfz418i57vqQxsVIL1DqR9o747f0dRX7SmhQnd4XnFHX/pub?output=csv";
 let mostrarSoloHoy = true;
-let datosCache = "";
 
-async function cargarAgenda() {
+async function cargarDatos() {
     try {
         const respuesta = await fetch(URL_CSV);
-        datosCache = await respuesta.text();
-        const filas = datosCache.split("\n").slice(1); 
-        
-        const divFacultad = document.getElementById('agenda-dinamica');
-        const divBookTok = document.getElementById('lista-booktok');
-        const divExamenes = document.getElementById('lista-examenes');
+        const texto = await respuesta.text();
+        const filas = texto.split("\n").slice(1);
 
-        // Limpiar todo antes de cargar
-        [divFacultad, divBookTok, divExamenes].forEach(d => d.innerHTML = "");
+        const contenedorFacultad = document.getElementById('agenda-dinamica');
+        const contenedorBookTok = document.getElementById('lista-booktok');
+        const contenedorExamenes = document.getElementById('lista-examenes');
+
+        // Limpiar secciones
+        contenedorFacultad.innerHTML = "";
+        contenedorBookTok.innerHTML = "";
+        contenedorExamenes.innerHTML = "";
 
         const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
         const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
 
         filas.forEach(fila => {
-            const columnas = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            if (columnas.length >= 7) {
-                // Asumimos que la columna 8 (index 7) es "Categoría"
-                const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = columnas.map(c => c.replace(/"/g, "").trim());
-
+            const col = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, "").trim());
+            
+            if (col.length >= 7) {
+                const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = col;
+                
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.style.borderLeft = `10px solid ${color || '#CFC1D8'}`;
+                card.style.borderLeft = `8px solid ${color || '#CFC1D8'}`;
                 card.innerHTML = `
                     <div class="card-header"><span>${dia} | ${horario}</span></div>
                     <h3>${actividad}</h3>
                     <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
                 `;
 
-                // CLASIFICACIÓN MÁGICA
+                // Clasificación por categoría (Columna H)
                 const cat = categoria ? categoria.toLowerCase() : "";
+                
                 if (cat === "examen") {
-                    divExamenes.appendChild(card);
+                    contenedorExamenes.appendChild(card);
                 } else if (cat === "booktok") {
-                    divBookTok.appendChild(card);
+                    contenedorBookTok.appendChild(card);
                 } else {
-                    // Solo filtramos por día lo que es de la Facultad
+                    // Facultad: solo mostramos hoy si el filtro está activo
                     if (!mostrarSoloHoy || dia === diaActual) {
-                        divFacultad.appendChild(card);
+                        contenedorFacultad.appendChild(card);
                     }
                 }
             }
         });
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Error cargando datos:", e); }
 }
+
+// ... Mantén tus funciones de actualizarReloj() y alternarFiltro() aquí abajo ...
 
 // ... (Acá van las funciones alternarFiltro y actualizarReloj que ya tenías)
 function alternarFiltro() {
@@ -71,6 +75,7 @@ function actualizarReloj() {
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarAgenda();
+
 
 
 
