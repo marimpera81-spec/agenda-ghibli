@@ -9,7 +9,7 @@ async function cargarAgenda() {
         
         const filas = datosCache.split("\n").slice(1); 
         const contenedor = document.getElementById('agenda-dinamica');
-        if (!contenedor) return; // Seguridad por si no encuentra el div
+        if (!contenedor) return;
 
         contenedor.innerHTML = ""; 
 
@@ -53,7 +53,6 @@ function alternarFiltro() {
     cargarAgenda();
 }
 
-// Reloj
 function actualizarReloj() {
     const ahora = new Date();
     const r = document.getElementById('reloj');
@@ -71,11 +70,10 @@ function actualizarReloj() {
     }
 }
 
+// Ejecución
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarAgenda();
-
-
 
 
 
