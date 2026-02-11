@@ -5,114 +5,48 @@
 }
 
 body {
-    /* Fondo con imagen y capa crema para legibilidad */
-    background-image: linear-gradient(rgba(250, 243, 224, 0.85), rgba(250, 243, 224, 0.85)), 
+    background-image: linear-gradient(rgba(250, 243, 224, 0.8), rgba(250, 243, 224, 0.8)), 
                       url('https://images.alphacoders.com/133/1331086.png');
     background-size: cover;
-    background-position: center;
     background-attachment: fixed;
-    color: var(--texto);
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
     margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--texto);
+    min-height: 100vh;
 }
 
-.glass-container {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 25px;
-    padding: 25px;
-    width: 100%;
-    max-width: 480px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-/* Estilo del Reloj y Saludo */
-#reloj-container {
-    margin-bottom: 25px;
-}
-
-#reloj {
-    font-size: 2.8rem;
-    font-weight: bold;
-    color: #4A4A4A;
-    margin: 5px 0;
-}
-
-#fecha-hoy {
-    color: var(--lavanda);
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-/* El Botón Lavanda */
-#btn-filtro {
-    background-color: var(--lavanda);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(207, 193, 216, 0.4);
-    margin-bottom: 25px;
-    transition: 0.3s;
-}
-
-#btn-filtro:hover {
-    transform: scale(1.05);
-}
-
-/* Las Tarjetas de Materias */
-.card {
-    background: white;
-    margin-bottom: 20px;
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Tres columnas */
+    gap: 20px;
     padding: 20px;
-    border-radius: 18px;
-    text-align: left;
-    border-left: 10px solid; /* El color viene del Sheets */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.card-header {
-    font-size: 0.85rem;
-    color: #999;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
+.glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
 }
 
-h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-    font-size: 1.3rem;
+h2 { border-bottom: 2px dashed var(--lavanda); padding-bottom: 10px; margin-top: 0; }
+
+.card-examen {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border-left: 5px solid #ff9a9e; /* Color alerta para exámenes */
 }
 
-/* El cuadro de la tarea con el emoji */
-.tarea-check {
-    background: #fdf8ef;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px dashed #decbb7;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* Responsivo para el celu */
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Una sola columna en el celu */
+    }
 }
-
-.tarea-check span {
-    font-size: 1.4rem;
-}
-
-
-
-
-
-
 
 
 
