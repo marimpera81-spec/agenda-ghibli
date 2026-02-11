@@ -15,12 +15,26 @@ body {
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 320px 1fr 350px; /* Tres columnas */
+    grid-template-columns: 300px 1fr 350px; /* Ancho fijo laterales, centro flexible */
     gap: 20px;
     padding: 20px;
     min-height: 100vh;
+    box-sizing: border-box;
+    align-items: start;
 }
 
+/* Para que las secciones tengan scroll interno si son muy largas */
+.main-content, .sidebar, .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Ajuste para que el calendario no sea minúsculo */
+.calendario-wrapper iframe {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 .glass {
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
@@ -43,6 +57,7 @@ h2 { border-bottom: 2px dashed var(--lavanda); padding-bottom: 10px; margin-top:
 @media (max-width: 1100px) {
     .dashboard-grid { grid-template-columns: 1fr; }
 }
+
 
 
 
