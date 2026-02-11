@@ -4,17 +4,18 @@ let mostrarSoloHoy = true;
 async function cargarDatos() {
     try {
         const respuesta = await fetch(URL_CSV);
-        const texto = await respuesta.text();
-        const filas = texto.split("\n").slice(1);
+        const datos = await respuesta.text();
+        const filas = datos.split("\n").slice(1); 
 
-        const contenedorFacultad = document.getElementById('agenda-dinamica');
-        const contenedorBookTok = document.getElementById('lista-booktok');
-        const contenedorExamenes = document.getElementById('lista-examenes');
+        // Referencias a los contenedores
+        const divFacu = document.getElementById('agenda-dinamica');
+        const divBook = document.getElementById('lista-booktok');
+        const divExamen = document.getElementById('lista-examenes');
 
-        // Limpiar secciones
-        contenedorFacultad.innerHTML = "";
-        contenedorBookTok.innerHTML = "";
-        contenedorExamenes.innerHTML = "";
+        // Limpiamos antes de cargar
+        divFacu.innerHTML = "";
+        divBook.innerHTML = "";
+        divExamen.innerHTML = "";
 
         const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
         const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
@@ -24,57 +25,58 @@ async function cargarDatos() {
             
             if (col.length >= 7) {
                 const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = col;
-                
+
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.style.borderLeft = `8px solid ${color || '#CFC1D8'}`;
+                card.style.borderLeft = `10px solid ${color || '#CFC1D8'}`;
                 card.innerHTML = `
                     <div class="card-header"><span>${dia} | ${horario}</span></div>
                     <h3>${actividad}</h3>
+                    <p style="font-size:0.8rem; color:#888; margin:0;">${tipo}</p>
                     <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
                 `;
 
-                // Clasificación por categoría (Columna H)
+                // CLASIFICACIÓN POR CATEGORÍA (Columna H)
                 const cat = categoria ? categoria.toLowerCase() : "";
-                
+
                 if (cat === "examen") {
-                    contenedorExamenes.appendChild(card);
+                    divExamen.appendChild(card);
                 } else if (cat === "booktok") {
-                    contenedorBookTok.appendChild(card);
+                    divBook.appendChild(card);
                 } else {
-                    // Facultad: solo mostramos hoy si el filtro está activo
+                    // Por defecto es Facultad: filtramos por día si corresponde
                     if (!mostrarSoloHoy || dia === diaActual) {
-                        contenedorFacultad.appendChild(card);
+                        divFacu.appendChild(card);
                     }
                 }
             }
         });
-    } catch (e) { console.error("Error cargando datos:", e); }
+    } catch (e) { console.error("Error:", e); }
 }
 
-// ... Mantén tus funciones de actualizarReloj() y alternarFiltro() aquí abajo ...
-
-// ... (Acá van las funciones alternarFiltro y actualizarReloj que ya tenías)
+// FUNCIONES DE SOPORTE
 function alternarFiltro() {
     mostrarSoloHoy = !mostrarSoloHoy;
     document.getElementById('btn-filtro').innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
-    cargarAgenda();
+    cargarDatos();
 }
 
 function actualizarReloj() {
     const ahora = new Date();
     document.getElementById('reloj').innerText = ahora.toLocaleTimeString('es-ES');
     document.getElementById('fecha-hoy').innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    
+    const saludo = document.getElementById('saludo');
     const h = ahora.getHours();
-    const s = document.getElementById('saludo');
-    if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
-    else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
-    else s.innerText = "¡Buenas noches, Maru! 🌙";
+    if (h < 12) saludo.innerText = "¡Buen día, Maru! ☕";
+    else if (h < 20) saludo.innerText = "¡Buena tarde, Maru! 🎨";
+    else saludo.innerText = "¡Buenas noches, Maru! 🌙";
 }
 
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
-cargarAgenda();
+cargarDatos();
+
 
 
 
