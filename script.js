@@ -78,7 +78,9 @@ function actualizarReloj() {
     }
 }
 
+// Inicios de ejecución
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarDatos();
+
 
