@@ -1,52 +1,16 @@
 const URL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuoZbTaaTKYrB9djx73gUcxktl3t0kRJsVgfz418i57vqQxsVIL1DqR9o747f0dRX7SmhQnd4XnFHX/pub?output=csv";
 let mostrarSoloHoy = true;
 let datosCache = "";
-let tabActual = 'Facultad';
 
-// 1. FUNCIÓN DEL RELOJ Y SALUDO
-function actualizarReloj() {
-    const ahora = new Date();
-    const horas = String(ahora.getHours()).padStart(2, '0');
-    const minutos = String(ahora.getMinutes()).padStart(2, '0');
-    const segundos = String(ahora.getSeconds()).padStart(2, '0');
-    
-    if(document.getElementById('reloj')) {
-        document.getElementById('reloj').innerText = `${horas}:${minutos}:${segundos}`;
-    }
-
-    const saludo = document.getElementById('saludo');
-    if(saludo) {
-        const hora = ahora.getHours();
-        if (hora < 12) saludo.innerText = "¡Buen día, Maru! ☕";
-        else if (hora < 20) saludo.innerText = "¡Buena tarde, Maru! 🎨";
-        else saludo.innerText = "¡Buenas noches, Maru! 🌙";
-    }
-}
-
-// 2. FUNCIÓN DEL CONTADOR DE EXAMEN
-function configurarContador() {
-    const fechaExamen = new Date('2026-03-10'); // Cambiá esta fecha cuando quieras
-    const hoy = new Date();
-    const dif = fechaExamen - hoy;
-    const dias = Math.ceil(dif / (1000 * 60 * 60 * 24));
-    
-    const display = document.getElementById('countdown-examen');
-    if (display) {
-        if (dias > 0) display.innerText = `⏳ Faltan ${dias} días para el próximo examen`;
-        else display.innerText = "✨ ¡No hay exámenes próximos!";
-    }
-}
-
-// 3. CARGAR DATOS DEL SHEETS
 async function cargarAgenda() {
     try {
-        if (!datosCache) {
-            const respuesta = await fetch(URL_CSV);
-            datosCache = await respuesta.text();
-        }
+        const respuesta = await fetch(URL_CSV);
+        datosCache = await respuesta.text();
         
         const filas = datosCache.split("\n").slice(1); 
         const contenedor = document.getElementById('agenda-dinamica');
+        if (!contenedor) return; // Seguridad por si no encuentra el div
+
         contenedor.innerHTML = ""; 
 
         const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
@@ -57,111 +21,60 @@ async function cargarAgenda() {
             if (columnas.length >= 6) {
                 const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
                 const diaLimpio = dia.replace(/"/g, "").trim();
-                const tipoLimpio = tipo.replace(/"/g, "").trim();
 
-                if (tipoLimpio === tabActual) {
-                    if (!mostrarSoloHoy || diaLimpio === diaActual) {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-                        const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
-                        card.style.borderLeft = `10px solid ${colorLimpio}`; 
-                        
-                        card.innerHTML = `
-                            <div class="card-header"><span>${diaLimpio} | ${horario.replace(/"/g, "")}</span></div>
-                            <h3>${actividad.replace(/"/g, "")}</h3>
-                            <div class="tarea-check"><span>${estado.replace(/"/g, "")}</span> ${tarea.replace(/"/g, "")}</div>
-                        `;
-                        contenedor.appendChild(card);
-                    }
+                if (!mostrarSoloHoy || diaLimpio === diaActual) {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
+                    card.style.borderLeft = `10px solid ${colorLimpio}`; 
+                    
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span>${diaLimpio} | ${horario.replace(/"/g, "")}</span>
+                        </div>
+                        <h3>${actividad.replace(/"/g, "")}</h3>
+                        <div class="tarea-check">
+                            <span>${estado.replace(/"/g, "")}</span> ${tarea.replace(/"/g, "")}
+                        </div>
+                    `;
+                    contenedor.appendChild(card);
                 }
             }
         });
-    } catch (e) { console.error(e); }
-}
-
-// 4. CONTROLES DE INTERFAZ
-function cambiarTab(nuevaTab) {
-    tabActual = nuevaTab;
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.includes(nuevaTab));
-    });
-    cargarAgenda();
+    } catch (e) {
+        console.error("Error cargando agenda:", e);
+    }
 }
 
 function alternarFiltro() {
     mostrarSoloHoy = !mostrarSoloHoy;
     const btn = document.getElementById('btn-filtro');
-    btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
+    if (btn) btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
     cargarAgenda();
 }
-// CONFIGURACIÓN DEL REPRODUCTOR
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        height: '0',
-        width: '0',
-        videoId: '8_vN7K8K4_o', // Radio Ghibli Lofi 24/7
-        playerVars: { 'autoplay': 0, 'controls': 0 },
-    });
-}
 
-// 1. CARGAR API
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        height: '1',
-        width: '1',
-        videoId: 'S4m9mU-fS8k', // Otra radio Ghibli muy estable
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'mute': 0, // Aseguramos que no empiece mudo
-            'origin': window.location.origin
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    console.log("Radio Ghibli lista para sonar ✨");
-}
-
-let tocando = false;
-function toggleMusica() {
-    const btn = document.getElementById('play-pause');
+// Reloj
+function actualizarReloj() {
+    const ahora = new Date();
+    const r = document.getElementById('reloj');
+    const s = document.getElementById('saludo');
+    const f = document.getElementById('fecha-hoy');
     
-    if (player && player.playVideo) {
-        if (!tocando) {
-            player.playVideo();
-            player.setVolume(80); // Subimos el volumen del reproductor
-            btn.innerText = "⏸️ Pausar Música";
-            tocando = true;
-        } else {
-            player.pauseVideo();
-            btn.innerText = "🎵 Escuchar Lofi Ghibli";
-            tocando = false;
-        }
-    } else {
-        console.log("Cargando player...");
+    if (r) r.innerText = ahora.toLocaleTimeString('es-ES');
+    if (f) f.innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    
+    if (s) {
+        const h = ahora.getHours();
+        if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
+        else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
+        else s.innerText = "¡Buenas noches, Maru! 🌙";
     }
 }
-}
-// INICIO
+
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
-configurarContador();
 cargarAgenda();
-// Llamamos a la función una vez para que no empiece en cero
-actualizarReloj();
-// Y luego que se repita cada segundo
-setInterval(actualizarReloj, 1000);
+
 
 
 
