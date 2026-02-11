@@ -3,36 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Agenda Ghibli 🏰</title>
+    <title>Agenda Maru 🌷</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="glass-container">
         <div id="reloj-container">
-            <div id="saludo">¡Hola, Maru! ✨</div>
+            <div id="saludo">Cargando...</div>
             <div id="reloj">00:00:00</div>
-            <div id="countdown-examen"></div>
-        </div>
-
-        <div class="tabs">
-            <button class="tab-btn active" onclick="cambiarTab('Facultad')">Facultad 🏛️</button>
-            <button class="tab-btn" onclick="cambiarTab('BookTok')">BookTok 🎥</button>
+            <div id="fecha-hoy"></div>
         </div>
 
         <div class="controles">
-        <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
-    <div class="player-container">
-    <button id="play-pause" onclick="toggleMusica()">🎵 Escuchar Lofi Ghibli</button>
-    <div id="youtube-player" style="display:none"></div>
-        <div id="youtube-player" style="position: absolute; opacity: 0.01; pointer-events: none;"></div>
-<script src="script.js"></script>
-</div>
+            <button id="btn-filtro" onclick="alternarFiltro()">Ver toda la semana 📅</button>
+        </div>
+
+        <div id="agenda-dinamica"></div>
     </div>
 
-    <div id="agenda-dinamica"></div>
-</div> <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
