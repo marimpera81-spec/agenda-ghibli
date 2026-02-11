@@ -30,12 +30,10 @@ async function cargarDatos() {
                 card.innerHTML = `
                     <div class="card-header"><span>${dia} | ${horario}</span></div>
                     <h3>${actividad}</h3>
-                    <p style="font-size:0.85rem; color:#777; margin: 5px 0;">${tipo}</p>
                     <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
                 `;
 
-                const cat = categoria ? categoria.toLowerCase() : "";
-
+                const cat = (categoria || "").toLowerCase();
                 if (cat === "examen") {
                     if (divExamen) divExamen.appendChild(card);
                 } else if (cat === "booktok") {
@@ -47,40 +45,29 @@ async function cargarDatos() {
                 }
             }
         });
-    } catch (e) {
-        console.error("Error al cargar la agenda:", e);
-    }
+    } catch (e) { console.error(e); }
 }
 
 function alternarFiltro() {
     mostrarSoloHoy = !mostrarSoloHoy;
-    const btn = document.getElementById('btn-filtro');
-    if (btn) {
-        btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
-    }
+    document.getElementById('btn-filtro').innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
     cargarDatos();
 }
 
 function actualizarReloj() {
     const ahora = new Date();
-    const r = document.getElementById('reloj');
-    const f = document.getElementById('fecha-hoy');
+    document.getElementById('reloj').innerText = ahora.toLocaleTimeString('es-ES');
+    document.getElementById('fecha-hoy').innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
     const s = document.getElementById('saludo');
-
-    if (r) r.innerText = ahora.toLocaleTimeString('es-ES');
-    if (f) f.innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-    
-    if (s) {
-        const h = ahora.getHours();
-        if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
-        else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
-        else s.innerText = "¡Buenas noches, Maru! 🌙";
-    }
+    const h = ahora.getHours();
+    if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
+    else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
+    else s.innerText = "¡Buenas noches, Maru! 🌙";
 }
 
-// Inicios de ejecución
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarDatos();
+
 
 
