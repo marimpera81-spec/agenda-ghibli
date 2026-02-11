@@ -6,74 +6,72 @@ async function cargarAgenda() {
     try {
         const respuesta = await fetch(URL_CSV);
         datosCache = await respuesta.text();
-        
         const filas = datosCache.split("\n").slice(1); 
-        const contenedor = document.getElementById('agenda-dinamica');
-        if (!contenedor) return;
+        
+        const divFacultad = document.getElementById('agenda-dinamica');
+        const divBookTok = document.getElementById('lista-booktok');
+        const divExamenes = document.getElementById('lista-examenes');
 
-        contenedor.innerHTML = ""; 
+        // Limpiar todo antes de cargar
+        [divFacultad, divBookTok, divExamenes].forEach(d => d.innerHTML = "");
 
         const hoy = new Intl.DateTimeFormat('es-ES', { weekday: 'long' }).format(new Date());
         const diaActual = hoy.charAt(0).toUpperCase() + hoy.slice(1);
 
         filas.forEach(fila => {
             const columnas = fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            if (columnas.length >= 6) {
-                const [dia, actividad, horario, tipo, tarea, estado, color] = columnas;
-                const diaLimpio = dia.replace(/"/g, "").trim();
+            if (columnas.length >= 7) {
+                // Asumimos que la columna 8 (index 7) es "Categoría"
+                const [dia, actividad, horario, tipo, tarea, estado, color, categoria] = columnas.map(c => c.replace(/"/g, "").trim());
 
-                if (!mostrarSoloHoy || diaLimpio === diaActual) {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    const colorLimpio = color ? color.trim().replace(/"/g, "") : "#CFC1D8";
-                    card.style.borderLeft = `10px solid ${colorLimpio}`; 
-                    
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <span>${diaLimpio} | ${horario.replace(/"/g, "")}</span>
-                        </div>
-                        <h3>${actividad.replace(/"/g, "")}</h3>
-                        <div class="tarea-check">
-                            <span>${estado.replace(/"/g, "")}</span> ${tarea.replace(/"/g, "")}
-                        </div>
-                    `;
-                    contenedor.appendChild(card);
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.borderLeft = `10px solid ${color || '#CFC1D8'}`;
+                card.innerHTML = `
+                    <div class="card-header"><span>${dia} | ${horario}</span></div>
+                    <h3>${actividad}</h3>
+                    <div class="tarea-check"><span>${estado}</span> ${tarea}</div>
+                `;
+
+                // CLASIFICACIÓN MÁGICA
+                const cat = categoria ? categoria.toLowerCase() : "";
+                if (cat === "examen") {
+                    divExamenes.appendChild(card);
+                } else if (cat === "booktok") {
+                    divBookTok.appendChild(card);
+                } else {
+                    // Solo filtramos por día lo que es de la Facultad
+                    if (!mostrarSoloHoy || dia === diaActual) {
+                        divFacultad.appendChild(card);
+                    }
                 }
             }
         });
-    } catch (e) {
-        console.error("Error cargando agenda:", e);
-    }
+    } catch (e) { console.error(e); }
 }
 
+// ... (Acá van las funciones alternarFiltro y actualizarReloj que ya tenías)
 function alternarFiltro() {
     mostrarSoloHoy = !mostrarSoloHoy;
-    const btn = document.getElementById('btn-filtro');
-    if (btn) btn.innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
+    document.getElementById('btn-filtro').innerText = mostrarSoloHoy ? "Ver toda la semana 📅" : "Ver solo hoy ✨";
     cargarAgenda();
 }
 
 function actualizarReloj() {
     const ahora = new Date();
-    const r = document.getElementById('reloj');
+    document.getElementById('reloj').innerText = ahora.toLocaleTimeString('es-ES');
+    document.getElementById('fecha-hoy').innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    const h = ahora.getHours();
     const s = document.getElementById('saludo');
-    const f = document.getElementById('fecha-hoy');
-    
-    if (r) r.innerText = ahora.toLocaleTimeString('es-ES');
-    if (f) f.innerText = ahora.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-    
-    if (s) {
-        const h = ahora.getHours();
-        if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
-        else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
-        else s.innerText = "¡Buenas noches, Maru! 🌙";
-    }
+    if (h < 12) s.innerText = "¡Buen día, Maru! ☕";
+    else if (h < 20) s.innerText = "¡Buena tarde, Maru! 🎨";
+    else s.innerText = "¡Buenas noches, Maru! 🌙";
 }
 
-// Ejecución
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
 cargarAgenda();
+
 
 
 
